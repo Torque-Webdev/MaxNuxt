@@ -81,7 +81,7 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 import { mdbInput, mdbBtn, mdbIcon } from "mdbvue";
-import { auth } from "../../firebase";
+import { auth } from "@/services/firebase";
 
 export default {
   data() {

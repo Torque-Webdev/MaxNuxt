@@ -59,7 +59,7 @@
 <script>
 import { mdbIcon, mdbBtn } from "mdbvue";
 import moment from "moment";
-import { imageCollection } from "../../firebase";
+import { imageCollection } from "@/services/firebase";
 // @ is an alias to /src
 
 export default {
