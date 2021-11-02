@@ -3,7 +3,7 @@ module.exports = {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s | Official Website',
-    title: 'Stephen Jelley',
+    title: 'Max Marzorati',
     htmlAttrs: {
       lang: 'en',
     },
