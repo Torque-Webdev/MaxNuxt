@@ -3,7 +3,7 @@
     <transition name="fade">
       <div v-if="showing" class="loading">
         <div class="position-relative d-flex flex-center">
-          <socket></socket>
+          Loading
         </div>
       </div>
     </transition>
@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import { Socket } from "vue-loading-spinner";
+// import { Socket } from "vue-loading-spinner";
 export default {
-  components: {
-    Socket,
-  },
+  // components: {
+  //   Socket,
+  // },
   props: {
     show: {
       type: Boolean,

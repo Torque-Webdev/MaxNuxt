@@ -38,12 +38,6 @@ export default {
       return moment(date).format("Do MMM YYYY");
     },
   },
-  props: {
-    msg: {
-      type: String,
-      default: ""
-    }
-  },
   data() {
     return {
       ongoing: false,
@@ -79,7 +73,7 @@ a {
 }
 
 a:hover,
-.router-link-active {
+.nuxt-link-active {
   color: red !important;
 }
 

@@ -1,4 +1,4 @@
-import { videoCollection, storage } from '@services/firebase'
+import { videoCollection, storage } from '@/services/firebase'
 
 export const state = () => ({
   video: '',

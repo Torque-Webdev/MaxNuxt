@@ -62,6 +62,7 @@
 <script>
 import { mdbIcon, mdbBtn } from "mdbvue";
 import moment from "moment";
+import { cloneDeep } from "lodash"
 
 export default {
   name: "Media",
@@ -93,11 +94,17 @@ export default {
       transition: false,
       visible: false,
       index: 0,
+      itemsCopy: []
     };
   },
   computed: {
-    items() {
-      return this.itemsVw;
+    items: {
+       get () {
+        return this.itemsVw;
+      },
+      set (newValue) {
+        return newValue;
+      },
     },
     pageCount() {
       const l = this.items.length;
@@ -115,35 +122,35 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.itemsVw = this.$store.getters["media/getMedia"].galleryContent.reverse();
+      this.itemsCopy = cloneDeep(this.$store.getters["media/getMedia"].galleryContent)
       this.transition = true;
+      this.itemsVw = this.itemsCopy.reverse()
     }, 500);
   },
   methods: {
     filter(value) {
       this.transition = false;
       this.pageNumber = 0;
-      this.itemsVw = this.$store.getters["media/getMedia"].galleryContent
       if (value === "all") {
         this.isActive = "all";
         setTimeout(() => {
-          this.itemsVw = ''
+          this.itemsVw = this.itemsCopy
           this.transition = true;
         }, 500);
       } else if (value === "images") {
         this.isActive = "images";
         setTimeout(() => {
-          this.itemsVw = this.itemsVw.filter((item) => {
-          return item.imgId;
-        });
+          this.itemsVw = this.itemsCopy.filter((item) => {
+            return item.imgId;
+          });
           this.transition = true;
         }, 500);
       } else if (value === "videos") {
         this.isActive = "videos";
         setTimeout(() => {
-          this.itemsVw = this.itemsVw.filter((item) => {
-          return item.videoId;
-        });
+          this.itemsVw = this.itemsCopy.filter((item) => {
+            return item.videoId;
+          });
           this.transition = true;
         }, 500);
       }

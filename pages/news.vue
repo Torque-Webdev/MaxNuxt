@@ -19,21 +19,21 @@
           <div v-if="transition">
             <div class="row bg-dark">
               <div
-                v-for="(post, index) in paginatedData"
+                v-for="(item, index) in paginatedData"
                 :key="index"
                 class="col-12 col-md-6 col-lg-4 p-0 m-auto"
               >
                   <div class="view overlay zoom">
-                <router-link :to="`/post/${post.slug}`" class="text-danger">
-                    <img :src="post.url" :alt="post.alt" class="image-dim m-auto text-center" @load="getImage(post.imgId)" />
+                <nuxt-link :to="{ name: 'post-slug', params: { slug: item.slug } }" class="text-danger">
+                    <img :src="item.url" :alt="item.alt" class="image-dim m-auto text-center" @load="getImage(item.imgId)" />
                     <div
                       class="mask rgba-black-strong d-flex flex-column justify-content-end pb-4 pl-4"
                     >
-                      <h2 class="text-white">{{ post.title }}</h2>
-                      <p class="text-white">{{ post.date | formatDate }}</p>
-                      <router-link :to="`/post/${post.slug}`" class="text-danger">More info</router-link>
+                      <h2 class="text-white">{{ item.title }}</h2>
+                      <p class="text-white">{{ item.date | formatDate }}</p>
+                      <nuxt-link :to="{ name: 'post-slug', params: { slug: item.slug } }" class="text-danger">More info</nuxt-link>
                     </div>
-                </router-link>
+                </nuxt-link>
                   </div>
               </div>
             </div>
@@ -60,7 +60,6 @@
 import { mdbIcon, mdbBtn } from "mdbvue";
 import moment from "moment";
 import { imageCollection } from "@/services/firebase";
-// @ is an alias to /src
 
 export default {
   name: "News",

@@ -12,18 +12,12 @@
         </div>
       </div>
     </div>
-    <contact id="contact"></contact>
+    <home-contact id="contact"></home-contact>
   </div>
 </template>
 
 <script>
 export default {
-  // components: {
-  //   VueEasyLightbox,
-  //   Hooper,
-  //   Slide,
-  //   HooperNavigation,
-  // },
   data() {
     return {
       visible: false,

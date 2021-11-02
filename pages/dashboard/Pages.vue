@@ -8,6 +8,6 @@
         <b-nav-item to="/dashboard/pages/media">Media</b-nav-item>
       </b-nav>
     </div>
-    <router-view class="pt-3"></router-view>
+    <nuxt-child class="pt-3"></nuxt-child>
   </div>
 </template>

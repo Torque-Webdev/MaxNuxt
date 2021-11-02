@@ -55,12 +55,21 @@ export const actions = {
       })
   },
   setPostSlug({ commit }, slug) {
-    postsCollection.where('slug', '==', slug).onSnapshot((doc) => {
-      doc.forEach((doc) => {
-        const post = doc.data()
-        post.id = doc.id
-        commit('setPost', post)
-      })
+    return new Promise((resolve) => {
+      postsCollection
+        .where('slug', '==', slug)
+        .get()
+        .then((docs) => {
+          docs.forEach((doc) => {
+            const post = doc.data()
+            post.id = doc.id
+            commit('setPost', post)
+            resolve(post)
+          })
+        })
+        .catch(function (error) {
+          console.log('Error getting documents: ', error)
+        })
     })
   },
   setPosts({ commit }) {

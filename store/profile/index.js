@@ -1,4 +1,4 @@
-import { profileCollection, profilePage } from '@services/firebase'
+import { profileCollection, profilePage } from '@/services/firebase'
 
 export const state = () => ({
   profile: [],

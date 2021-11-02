@@ -1,15 +1,11 @@
 <template>
   <div class="container pt-5">
     <div class="mb-5">
-      <router-link to="/">
+      <nuxt-link to="/">
         <mdb-icon icon="arrow-left" />&nbsp; Home
-      </router-link>
+      </nuxt-link>
       <hr />
     </div>
-
-    <transition name="fade">
-      <loader :show="performingRequest"></loader>
-    </transition>
 
     <form v-if="!showForgotPassword" @submit.prevent>
       <p class="h4 text-center mb-4">Sign in</p>
@@ -81,7 +77,6 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 import { mdbInput, mdbBtn, mdbIcon } from "mdbvue";
-import { auth } from "@/services/firebase";
 
 export default {
   data() {
@@ -136,44 +131,40 @@ export default {
         this.showForgotPassword = true;
       }
     },
-    login() {
-      this.performingRequest = true;
-      auth
-        .signInWithEmailAndPassword(this.formdata.email, this.formdata.password)
+        login() {
+      this.$store
+        .dispatch('users/login', this.formdata)
         .then(() => {
-          this.performingRequest = false;
-          this.$router.push("/dashboard");
+          this.$router.push('/dashboard')
+          this.formdata = {
+            email: '',
+            password: '',
+          }
         })
-        .catch((err) => {
-          this.performingRequest = false;
-          this.msg = {
-            type: "warning",
-            message: err.message,
-          };
+        .catch((error) => {
+          this.isError = true
+          this.msg = error
           setTimeout(() => {
-            this.msg = {
-              type: "",
-              message: "",
-            };
-          }, 2000);
-        });
+            this.isError = false
+          }, 5000)
+        })
     },
     resetPassword() {
-      this.performingRequest = true;
-      auth
-        .sendPasswordResetEmail(this.passwordForm.email)
+      this.performingRequest = true
+      this.$store
+        .dispatch('users/restPass', this.passwordForm.email)
         .then(() => {
-          this.performingRequest = false;
-          this.passwordResetSuccess = true;
-          this.passwordForm.email = "";
+          this.performingRequest = false
+          this.passwordResetSuccess = true
+          this.passwordForm.email = ''
         })
-        .catch((err) => {
-          this.performingRequest = false;
-          this.errorMsg = err.message;
+        .catch((error) => {
+          this.isError = true
+          this.msg = error
           setTimeout(() => {
-            this.errorMsg = "";
-          }, 2000);
-        });
+            this.isError = false
+          }, 5000)
+        })
     },
   },
 };

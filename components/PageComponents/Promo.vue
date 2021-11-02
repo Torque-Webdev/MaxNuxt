@@ -1,9 +1,9 @@
 <template>
   <div class="my-5 bg-white">
-    <mdb-container>
+    <mdb-container v-if="profile">
       <mdb-row>
-        <mdb-col sm="4" class="p-2 py-3">
-          <router-link to="profile">
+        <mdb-col v-if="profile.head" sm="4" class="p-2 py-3">
+          <nuxt-link to="profile">
             <div class="overflow-hidden pb-3">
               <img
                 :src="profile.head.url" :alt="profile.head.alt"
@@ -12,25 +12,25 @@
             </div>
             <h5>Profile</h5>
             <p>View my profile</p>
-          </router-link>
+          </nuxt-link>
         </mdb-col>
-        <mdb-col sm="4" class="p-2 py-3">
-          <router-link to="media">
+        <mdb-col v-if="media.head" sm="4" class="p-2 py-3">
+          <nuxt-link to="media">
             <div class="overflow-hidden pb-3">
               <img :src="media.head.url" :alt="media.head.alt" class="img-fluid mb-2" />
             </div>
             <h5>Media</h5>
             <p>View my media</p>
-          </router-link>
+          </nuxt-link>
         </mdb-col>
-        <mdb-col sm="4" class="p-2 py-3">
-          <router-link to="news">
+        <mdb-col v-if="news.head" sm="4" class="p-2 py-3">
+          <nuxt-link to="news">
             <div class="overflow-hidden pb-3">
               <img :src="news.head.url" :alt="news.head.alt" class="img-fluid mb-2" />
             </div>
             <h5>News</h5>
             <p>Keep up to date with my latest news</p>
-          </router-link>
+          </nuxt-link>
         </mdb-col>
       </mdb-row>
     </mdb-container>
@@ -46,6 +46,11 @@ export default {
     mdbContainer,
     mdbRow,
     mdbCol,
+  },
+  async fetch ({ store }) {
+    await store.dispatch("videoSection/setVideo");
+    await store.dispatch("media/setMedia");
+    await store.dispatch("posts/setPosts");
   },
   computed: {
     media() {

@@ -27,7 +27,7 @@
         </div>
 
         <mdb-col>
-          <app-editor2 :content.sync="about.content"></app-editor2>
+          <ui-app-editor2 :content.sync="about.content"></ui-app-editor2>
         </mdb-col>
 
         <mdb-row>

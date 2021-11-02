@@ -1,6 +1,6 @@
 <template>
   <mdb-container fluid>
-    <mdb-row class="videoContainer">
+    <mdb-row v-if="video" class="videoContainer">
       <video class="video-fluid z-depth-1" autoplay loop muted>
         <source :src="video.url" type="video/mp4" />
       </video>
@@ -22,9 +22,12 @@ export default {
       default: ""
     },
   },
+  async fetch ({ store }) {
+    await store.dispatch("videoSection/setVideo");
+  },
   computed: {
     video() {
-      return this.$store.getters["videoSection/getVideo"][0];
+      return this.$store.getters["videoSection/getVideo"][0]
     },
   },
 };

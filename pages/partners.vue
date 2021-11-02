@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <contact id="contact"></contact>
+    <home-contact id="contact"></home-contact>
   </div>
 </template>
 

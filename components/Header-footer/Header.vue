@@ -8,7 +8,7 @@
         </template>
       </b-navbar-toggle>
 
-      <b-navbar-brand v-if="slideDown" to="/home" class="d-lg-none">
+      <b-navbar-brand v-if="slideDown" to="/" class="d-lg-none">
         <img
           src="../../assets/images/Max_logo_2020.png"
           alt="Max Mazorati logo"
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.router-link-active {
+.nuxt-link-active {
   color: #e40613 !important;
 }
 

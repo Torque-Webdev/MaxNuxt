@@ -1,44 +1,16 @@
 <template>
   <div id="home">
-    <Header></Header>
-    <Video></Video>
+    <home-video></home-video>
     <hr class="py-2 bg-dark m-0" />
-    <promo></promo>
+    <home-promo></home-promo>
     <hr class="py-2 bg-dark m-0" />
-    <calendar></calendar>
+    <home-calendar></home-calendar>
     <hr class="py-2 bg-dark m-0" />
-    <Social></Social>
-    <Social2></Social2>
+    <home-social></home-social>
+    <home-social2></home-social2>
     <hr class="py-2 bg-dark m-0" />
-    <stay-connected></stay-connected>
+    <home-stay-connected></home-stay-connected>
     <hr class="py-2 bg-dark m-0" />
-    <contact id="contact"></contact>
+    <home-contact id="contact"></home-contact>
   </div>
 </template>
-
-<script>
-// @ is an alias to /src
-import Video from "@/components/PageComponents/Video.vue";
-import Promo from "@/components/PageComponents/Promo.vue";
-import Calendar from "@/components/PageComponents/Calendar.vue";
-import Social from "@/components/PageComponents/Social.vue";
-import Social2 from "@/components/PageComponents/Social2.vue";
-
-export default {
-  name: "Home",
-  components: {
-    Video,
-    Promo,
-    Calendar,
-    Social,
-    Social2,
-  },
-  mounted() {
-    const section = this.$router.currentRoute.hash.replace("#", "");
-    if (section)
-      this.$nextTick(() =>
-        window.document.getElementById(section).scrollIntoView()
-      );
-  },
-};
-</script>

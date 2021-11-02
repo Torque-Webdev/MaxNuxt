@@ -26,11 +26,11 @@
         </div>
 
         <mdb-col>
-          <app-editor2 :content.sync="marketing.content"></app-editor2>
+          <ui-app-editor2 :content.sync="marketing.content"></ui-app-editor2>
         </mdb-col>
 
         <mdb-col>
-          <app-editor2 :content.sync="marketing.content2"></app-editor2>
+          <ui-app-editor2 :content.sync="marketing.content2"></ui-app-editor2>
         </mdb-col>
 
         <mdb-row>
