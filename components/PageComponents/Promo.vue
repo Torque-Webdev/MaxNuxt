@@ -71,13 +71,16 @@ img {
 .col-sm-4:hover {
   background: red;
 }
-.col-sm-4:hover a {
-  color: white;
-}
 
 .col-sm-4 a {
   color: black;
 }
+
+.col-sm-4:hover a {
+  color: white;
+}
+
+
 .col-sm-4:hover img {
   transform: scale(1.1);
 }

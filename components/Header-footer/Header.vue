@@ -122,16 +122,16 @@ export default {
   color: #e40613 !important;
 }
 
-a:hover {
-    color: red !important;
-}
-
 ul {
   li a {
     font-size: 1.2rem;
     padding: 1rem 0;
     font-weight: 700;
   }
+}
+
+a:hover {
+    color: red !important;
 }
 
 @media (max-width: 991px) {

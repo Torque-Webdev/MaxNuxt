@@ -52,12 +52,15 @@ export default {
 
 <style lang="scss" scoped>
 .col-4 {
+
+  img {
+    transition: all 0.5s ease-in-out;
+  }
+
   img:hover {
     background-color: red;
     transform: scale(1.2);
   }
-  img {
-    transition: all 0.5s ease-in-out;
-  }
+
 }
 </style>

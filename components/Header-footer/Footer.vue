@@ -40,19 +40,22 @@ export default {
 </script>
 
 <style scoped>
-.d-flex .links img:hover {
-  background-color: red;
+.d-flex img {
+  transition: all 0.5s ease-in-out;
 }
+
 .d-flex img:hover {
   transform: scale(1.1);
 }
-.d-flex img {
-  transition: all 0.5s ease-in-out;
+
+.d-flex .links img:hover {
+  background-color: red;
 }
 
 p {
   line-height: 2rem;
 }
+
 a:hover {
   color: red !important;
 }
