@@ -1,4 +1,5 @@
-export default {
+/* eslint-disable nuxt/no-cjs-in-config */
+module.exports = {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - max-nuxt',
@@ -22,7 +23,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['@/plugins/bt-vue'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -47,6 +48,6 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend(config, ctx) {},
-    transpile: ['mdbvue/lib/components'],
+    transpile: ['mdbvue/lib/components', 'bootstrap-vue'],
   },
 }
