@@ -13,7 +13,10 @@ export default {
   props: {
     msg: {
       type: Object,
-      default: () => {}
+      default: () => ({
+        type: '',
+        message: '',
+      })
     }
   },
 };

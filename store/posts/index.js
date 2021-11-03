@@ -1,7 +1,9 @@
+import moment from 'moment'
 import { postsCollection, newsPage } from '@/services/firebase'
 
 export const state = () => ({
   allPosts: [],
+  publishedPosts: [],
   post: null,
   postsByYear: [],
   page: null,
@@ -27,6 +29,13 @@ export const mutations = {
       state.post = val
     } else {
       state.post = null
+    }
+  },
+  setPublishedPosts(state, val) {
+    if (val) {
+      state.publishedPosts = val
+    } else {
+      state.publishedPosts = null
     }
   },
   setPage(state, val) {
@@ -74,14 +83,46 @@ export const actions = {
   },
   setPosts({ commit }) {
     postsCollection.orderBy('date', 'desc').onSnapshot((querySnapshot) => {
+      const now = moment().format()
       const postsArray = []
 
       querySnapshot.forEach((doc) => {
         const post = doc.data()
         post.id = doc.id
+        if (!post.published) {
+          postsCollection
+            .doc(post.id)
+            .update({
+              published: now,
+            })
+            .then(function () {
+              console.log('Document successfully updated!')
+            })
+            .catch(function (error) {
+              console.error('Error updating document: ', error)
+            })
+        }
         postsArray.push(post)
       })
       commit('setPosts', postsArray)
+      commit(
+        'setPublishedPosts',
+        postsArray.filter((post) => now >= post.published)
+      )
+    })
+
+    postsCollection.orderBy('published', 'desc').onSnapshot((querySnapshot) => {
+      const postsArray = []
+      const now = moment().format()
+
+      querySnapshot.forEach((doc) => {
+        const post = doc.data()
+        post.id = doc.id
+        if (now >= post.published) {
+          postsArray.push(post)
+        }
+      })
+      commit('setPublishedPosts', postsArray)
     })
 
     newsPage.onSnapshot((querySnapshot) => {
@@ -118,6 +159,9 @@ export const getters = {
   },
   getPosts(state) {
     return state.allPosts
+  },
+  getPublishedPosts(state) {
+    return state.publishedPosts
   },
   getPostsByYear(state) {
     return state.postsByYear

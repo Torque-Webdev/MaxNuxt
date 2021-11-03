@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header></Header>
     <div id="news">
       <div class="container-fluid">
         <div class="row d-none">
@@ -105,7 +104,7 @@ export default {
       },
     },
     years() {
-      const allPosts = this.$store.getters["posts/getPosts"];
+      const allPosts = this.$store.getters["posts/getPublishedPosts"];
       const years = [...new Set(allPosts.map((item) => item.year))];
       return years;
     },
@@ -125,7 +124,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.postsVw = this.$store.getters["posts/getPosts"];
+      this.postsVw = this.$store.getters["posts/getPublishedPosts"];
       this.transition = true;
     }, 500);
   },
@@ -136,7 +135,7 @@ export default {
         this.transition = false;
         this.pageNumber = 0;
         setTimeout(() => {
-          this.postsVw = this.$store.getters["posts/getPosts"];
+          this.postsVw = this.$store.getters["posts/getPublishedPosts"];
           this.transition = true;
         }, 500);
       } else {
