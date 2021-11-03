@@ -29,6 +29,19 @@ export default {
   components: {
     mdbIcon,
   },
+  async fetch ({ store }) {
+    await store.dispatch("videoSection/setVideo");
+    await store.dispatch("videos/setVideos");
+    await store.dispatch("posts/setPosts");
+    await store.dispatch("profile/setProfile");
+    await store.dispatch("media/setMedia");
+    await store.dispatch("calendar/setFixtures");
+    await store.dispatch("circuits/setCircuits");
+    await store.dispatch("images/setImages");
+    await store.dispatch("fanclub/setContent");
+    await store.dispatch("partners/setContent");
+    await store.dispatch("marketing/setContent");
+  },
   methods: {
     logout() {
       auth.signOut().then(() => {

@@ -226,7 +226,9 @@ import {
   mdbPopover,
   mdbInput,
 } from "mdbvue";
+import { cloneDeep } from "lodash"
 import { imageCollection, marketingPage } from "@/services/firebase";
+
 export default {
   components: {
     mdbBtn,
@@ -285,14 +287,14 @@ export default {
   },
   created() {
     setTimeout(() => {
-      this.marketing = this.marketingContent;
-      this.galleryContent = this.marketingContent.galleryContent;
-    }, 2000);
+      this.marketing = cloneDeep(this.marketingContent)
+      this.galleryContent = this.marketing.galleryContent;
+    }, 500);
   },
   methods: {
     reset() {
-      this.marketing = this.marketingContent;
-      this.galleryContent = this.marketingContent.galleryContent;
+      this.marketing = cloneDeep(this.marketingContent)
+      this.galleryContent = this.marketing.galleryContent;
       this.file = "";
       this.img = {
         id: "",

@@ -208,6 +208,7 @@ import {
   mdbModal,
   mdbInput,
 } from "mdbvue";
+import { cloneDeep } from "lodash"
 import { imageCollection, fanclubPage } from "@/services/firebase";
 export default {
   components: {
@@ -265,12 +266,12 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.about = this.aboutContent;
-    }, 1500);
+      this.about = cloneDeep(this.aboutContent)
+    }, 500);
   },
   methods: {
     reset() {
-      this.about = this.aboutContent;
+      this.about = cloneDeep(this.aboutContent)
       this.file = "";
       this.img = {
         id: "",

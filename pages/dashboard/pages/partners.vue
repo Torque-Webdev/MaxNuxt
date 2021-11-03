@@ -26,7 +26,7 @@
       </mdb-row>
 
       <mdb-row>
-        <UIPartners :partners.sync='about.partners'></UIPartners>
+        <UiPartners :partners.sync='about.partners'></UiPartners>
 
         <mdb-col col="12">
           <mdb-btn color="primary" @click.native="submitForm()">Update Content</mdb-btn>
@@ -182,6 +182,7 @@ import {
   mdbModal,
   mdbInput,
 } from "mdbvue";
+import { cloneDeep } from "lodash"
 import { imageCollection, partnersPage } from "@/services/firebase";
 export default {
   components: {
@@ -239,12 +240,12 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.about = this.aboutContent;
-    }, 1500);
+      this.about = cloneDeep(this.aboutContent)
+    }, 500);
   },
   methods: {
     reset() {
-      this.about = this.aboutContent;
+      this.about = cloneDeep(this.aboutContent)
       this.file = "";
       this.img = {
         id: "",

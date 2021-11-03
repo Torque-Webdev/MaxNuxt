@@ -4,9 +4,11 @@
       <input id="customSwitches" v-model="imgSwitch" type="checkbox" class="custom-control-input">
       <label class="custom-control-label" for="customSwitches" >Change news display image ?</label>
     </div>
+    <!-- news page hedline image  -->
     <mdb-container v-if="imgSwitch">
       <UiNewsImage></UiNewsImage>
     </mdb-container>
+    <!-- create post  -->
     <mdb-container v-else>
       <mdb-row>
         <mdb-col class="text-center pt-2" col="12">
@@ -47,8 +49,12 @@
               <mdb-input v-model.trim="post.excerpt" label="Excerpt" inline />
             </div>
 
+            <h2>Schedule post</h2>
+
+            <helpers-scheduling :publish-date.sync="post.published"></helpers-scheduling>
+
             <mdb-col>
-              <app-editor2 :content.sync="post.content"></app-editor2>
+              <ui-app-editor2 :content.sync="post.content"></ui-app-editor2>
               <mdb-btn color="primary" type="submit">Add Post</mdb-btn>
             </mdb-col>
           </form>
@@ -57,15 +63,10 @@
     </mdb-container>
 
     <transition name="fade">
-      <div
-        v-if="msg.message != ''"
-        :class="`bg-${msg.type}`"
-        class="pl-5 mt-4 text-white text-center"
-      >
-        <p>{{ msg.message }}</p>
-      </div>
+      <ui-message :msg="msg"></ui-message>
     </transition>
 
+    <!-- view posts -->
     <mdb-container fluid class="p-0 pt-5">
       <mdb-row>
         <mdb-col>
@@ -150,8 +151,12 @@
             />
           </div>
 
+          <h2>Schedule post</h2>
+
+          <helpers-scheduling :publish-date.sync="clickedPost.published"></helpers-scheduling>
+
           <div class="md-form">
-            <app-editor2 :content.sync="clickedPost.content"></app-editor2>
+            <ui-app-editor2 :content.sync="clickedPost.content"></ui-app-editor2>
           </div>
         </form>
       </mdb-modal-body>
@@ -272,6 +277,8 @@
         </div>
       </transition>
     </mdb-modal>
+    <mdb-btn color="secondary" size="sm" @click.native="check"
+          >Check</mdb-btn>
   </div>
 </template>
 
@@ -333,10 +340,14 @@ export default {
         year: "",
         imgId: "",
         url: "",
+        published: "",
       },
       imgSwitch: false,
       pageNumber: 0,
-      msg: "",
+      msg: {
+        type: '',
+        message: '',
+      },
       editMsg: "",
       editModal: false,
       deleteModal: false,
@@ -352,6 +363,7 @@ export default {
         date: "",
         content: "",
         year: "",
+        published: ''
       },
       existsModal: false,
       uploadImage: false,
@@ -396,13 +408,17 @@ export default {
         year: "",
         imgId: "",
         url: "",
-      };
+        publishDate: ""
+      }
       this.file = "";
       this.img = {
         id: "",
         content: "",
         alt: "",
       };
+    },
+    check() {
+      console.log(this.post)
     },
     addPost() {
       let slugArry = [];
@@ -421,6 +437,7 @@ export default {
 
       if (this.post.url === "") {
         this.post.url = this.defaultImage;
+        this.post.alt = "Placeholder image";
       }
 
       postsCollection
@@ -435,6 +452,7 @@ export default {
           imgId: this.post.imgId,
           url: this.post.url,
           alt: this.post.alt,
+          published: this.post.published
         })
         .then(() => {
           this.reset();
@@ -620,6 +638,7 @@ export default {
       this.clickedPost.url = post.url;
       this.clickedPost.imgId = post.imgId;
       this.clickedPost.alt = post.alt;
+      this.clickedPost.published = post.published
     },
     cancelEdit() {
       this.clickedPost = {
@@ -633,6 +652,7 @@ export default {
         url: "",
         imgId: "",
         alt: "",
+        published: ""
       };
       this.editModal = false;
     },
@@ -668,6 +688,7 @@ export default {
           imgId: this.clickedPost.imgId,
           url: this.clickedPost.url,
           alt: this.clickedPost.alt,
+          published: this.clickedPost.published
         })
         .then(() => {
           this.cancelEdit();
