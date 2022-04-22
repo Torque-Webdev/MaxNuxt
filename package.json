@@ -22,7 +22,7 @@
     "cookieparser": "^0.1.0",
     "core-js": "^3.15.1",
     "emailjs-com": "^2.6.3",
-    "firebase": "^9.2.0",
+    "firebase": "^8.10.0",
     "hooper": "^0.3.4",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",

@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      isActive: null,
+      isActive: 'all',
       pageNumber: 0,
       postsVw: [],
       transition: false,
@@ -118,9 +118,6 @@ export default {
         const end = start + this.size;
       return this.posts.slice(start, end);
     },
-  },
-  created() {
-    this.isActive = "all";
   },
   mounted() {
     setTimeout(() => {

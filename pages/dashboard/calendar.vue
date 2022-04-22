@@ -116,24 +116,8 @@
       <mdb-modal-body>
         <form class="p-2" @submit.prevent>
           <mdb-col class="text-center pt-2">
-            <img
-              v-if="circuit.url"
-              :src="circuit.url"
-              :alt="circuit.alt"
-              class="img-fluid"
-            />
-
-            <img
-              v-else
-              :src="defaultImage"
-              alt="Placeholder image"
-              class="img-fluid"
-            />
+            <ui-image-upload :image.sync="circuit.img"></ui-image-upload>
           </mdb-col>
-
-          <mdb-btn color="primary" class="ml-3" inline @click="newImage"
-            >Circuit Image</mdb-btn
-          >
 
           <div class="md-form">
             <mdb-input v-model.trim="circuit.title" label="Title" inline />
@@ -356,7 +340,6 @@ import {
   mdbRow,
 } from "mdbvue";
 import {
-  imageCollection,
   calendarCollection,
   circuitsCollection,
 } from "@/services/firebase";
@@ -400,10 +383,12 @@ export default {
         circuit: {},
       },
       circuit: {
+        img: {
+          url: "",
+          alt: "",
+        },
         id: "",
-        url: "",
-        title: "",
-        alt: "",
+        title: ""
       },
       clickedFixture: {
         id: "",
@@ -521,9 +506,8 @@ export default {
     addCircuit() {
       circuitsCollection
         .add({
-          url: this.circuit.url,
-          imgId: this.circuit.imgId,
-          alt: this.img.content.alt,
+          url: this.circuit.img.url,
+          alt: this.circuit.img.alt,
           title: this.circuit.title,
           createdOn: new Date(),
         })
@@ -578,82 +562,6 @@ export default {
     cancelAdd() {
       this.addCircuitModel = false;
       this.reset();
-    },
-    newImage() {
-      this.uploadImage = true;
-    },
-    checkFile(event) {
-      this.file = event.target.files[0];
-      imageCollection
-        .where("name", "===", this.file.name)
-        .get()
-        .then((docs) => {
-          docs.forEach((doc) => {
-            if (doc.exists) {
-              this.existsModal = true;
-              this.uploadImage = false;
-              this.img.content = doc.data();
-              this.img.id = doc.id;
-
-            }
-          });
-        });
-    },
-    saveFile() {
-      const payload = {};
-      payload.file = this.file;
-      payload.alt = this.img.alt;
-      this.$store
-        .dispatch("images/uploadImage", payload)
-        .then((img) => {
-          this.img.content = img;
-          this.circuit.imgId = this.img.content.id;
-          this.circuit.url = this.img.content.url;
-          this.circuit.alt = this.img.content.alt;
-          if (this.type === "edit") {
-            this.clickedFixture.circuit.imgId = this.circuit.imgId;
-            this.clickedFixture.circuit.url = this.circuit.url;
-            this.clickedFixture.circuit.alt = this.img.alt;
-          }
-        })
-        .then(() => {
-          this.$store.dispatch("global/setLoading", false);
-          this.file = "";
-          this.img.alt = "";
-          setTimeout(() => {
-            this.uploadImage = false;
-          }, 3000);
-        });
-    },
-    closeImageUpload() {
-      this.uploadImage = false;
-      this.type = "";
-      this.file = "";
-      this.img.alt = "";
-    },
-    confirmUse() {
-      this.circuit.imgId = this.img.id;
-      this.existsModal = false;
-      this.circuit.url = this.img.content.url;
-      this.img.alt = this.img.content.alt;
-      this.file = "";
-      this.img.alt = "";
-      if (this.type === "edit") {
-        this.clickedFixture.circuit.imgId = this.circuit.imgId;
-        this.existsModal = false;
-        this.clickedFixture.circuit.url = this.circuit.url;
-        this.clickedFixture.circuit.alt = this.img.alt;
-        this.file = "";
-        this.img.alt = "";
-      }
-    },
-    declineUse() {
-      this.existsModal = false;
-      this.img.content = "";
-      this.img.id = "";
-      this.type = "";
-      this.file = "";
-      this.img.alt = "";
     },
     submitForm() {
       if (this.fixture.date === "" || this.circuit.title === "") {

@@ -52,5 +52,8 @@
   },
   "UiProfileImage": {
     "description": "Auto imported from components/UI/profileImage.vue"
+  },
+  "HelpersScheduling": {
+    "description": "Auto imported from components/Helpers/scheduling.vue"
   }
 }

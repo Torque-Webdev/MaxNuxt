@@ -24,3 +24,4 @@ You can directly use them in pages and other components without the need to impo
 - `<UiNewsImage>` | `<ui-news-image>` (components/UI/newsImage.vue)
 - `<UiPartners>` | `<ui-partners>` (components/UI/partners.vue)
 - `<UiProfileImage>` | `<ui-profile-image>` (components/UI/profileImage.vue)
+- `<HelpersScheduling>` | `<helpers-scheduling>` (components/Helpers/scheduling.vue)

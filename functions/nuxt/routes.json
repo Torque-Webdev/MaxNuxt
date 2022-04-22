@@ -1,180 +1,179 @@
 [
   {
     "path": "/dashboard",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard.vue",
     "chunkName": "pages/dashboard",
     "children": [
       {
         "name": "dashboard",
         "path": "",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/index.vue",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/index.vue",
         "chunkName": "pages/dashboard/index",
-        "_name": "_7d45f72a"
+        "_name": "_6d516eba"
       },
       {
         "name": "dashboard-calendar",
         "path": "calendar",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/calendar.vue",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/calendar.vue",
         "chunkName": "pages/dashboard/calendar",
-        "_name": "_0b27d216"
+        "_name": "_51967086"
       },
       {
         "path": "gallery",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/gallery.vue",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/gallery.vue",
         "chunkName": "pages/dashboard/gallery",
         "children": [
           {
             "name": "dashboard-gallery",
             "path": "",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/gallery/index.vue",
+            "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/gallery/index.vue",
             "chunkName": "pages/dashboard/gallery/index",
-            "_name": "_43a5f4ad"
+            "_name": "_2ec8dc3d"
           },
           {
             "name": "dashboard-gallery-circuits",
             "path": "circuits",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/gallery/circuits.vue",
+            "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/gallery/circuits.vue",
             "chunkName": "pages/dashboard/gallery/circuits",
-            "_name": "_601d2e1f"
+            "_name": "_72fe5c8f"
           },
           {
             "name": "dashboard-gallery-videos",
             "path": "videos",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/gallery/videos.vue",
+            "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/gallery/videos.vue",
             "chunkName": "pages/dashboard/gallery/videos",
-            "_name": "_b0658fe6"
+            "_name": "_2107427d"
           }
         ],
-        "_name": "_9b2c54ac"
+        "_name": "_6514ad8c"
       },
       {
+        "name": "dashboard-pages",
         "path": "pages",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/pages.vue",
-        "chunkName": "pages/dashboard/pages",
-        "children": [
-          {
-            "name": "dashboard-pages",
-            "path": "",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/pages/index.vue",
-            "chunkName": "pages/dashboard/pages/index",
-            "_name": "_7a11369f"
-          },
-          {
-            "name": "dashboard-pages-marketing",
-            "path": "marketing",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/pages/marketing.vue",
-            "chunkName": "pages/dashboard/pages/marketing",
-            "_name": "_2ad4291a"
-          },
-          {
-            "name": "dashboard-pages-media",
-            "path": "media",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/pages/media.vue",
-            "chunkName": "pages/dashboard/pages/media",
-            "_name": "_29c7a4b1"
-          },
-          {
-            "name": "dashboard-pages-partners",
-            "path": "partners",
-            "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/pages/partners.vue",
-            "chunkName": "pages/dashboard/pages/partners",
-            "_name": "_130ca56e"
-          }
-        ],
-        "_name": "_39bc15c8"
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/pages/index.vue",
+        "chunkName": "pages/dashboard/pages/index",
+        "_name": "_862e7ba2"
+      },
+      {
+        "name": "dashboard-Pages",
+        "path": "Pages",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/Pages.vue",
+        "chunkName": "pages/dashboard/Pages",
+        "_name": "_4a9f8c8c"
       },
       {
         "name": "dashboard-posts",
         "path": "posts",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/posts.vue",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/posts.vue",
         "chunkName": "pages/dashboard/posts",
-        "_name": "_25d5e1ab"
+        "_name": "_15e1593b"
       },
       {
         "name": "dashboard-profile",
         "path": "profile",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/profile.vue",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/profile.vue",
         "chunkName": "pages/dashboard/profile",
-        "_name": "_3d1ce481"
+        "_name": "_5828b811"
       },
       {
         "name": "dashboard-video",
         "path": "video",
-        "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/dashboard/video.vue",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/video.vue",
         "chunkName": "pages/dashboard/video",
-        "_name": "_064a335a"
+        "_name": "_2633443a"
+      },
+      {
+        "name": "dashboard-pages-marketing",
+        "path": "pages/marketing",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/pages/marketing.vue",
+        "chunkName": "pages/dashboard/pages/marketing",
+        "_name": "_cec5a1fa"
+      },
+      {
+        "name": "dashboard-pages-media",
+        "path": "pages/media",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/pages/media.vue",
+        "chunkName": "pages/dashboard/pages/media",
+        "_name": "_6c9f3041"
+      },
+      {
+        "name": "dashboard-pages-partners",
+        "path": "pages/partners",
+        "component": "/Users/harry/Desktop/MaxNuxt/pages/dashboard/pages/partners.vue",
+        "chunkName": "pages/dashboard/pages/partners",
+        "_name": "_e772a044"
       }
     ],
-    "_name": "_1ae8b9e7"
+    "_name": "_0eedc512"
   },
   {
     "name": "f3",
     "path": "/f3",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/f3.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/f3.vue",
     "chunkName": "pages/f3",
-    "_name": "_1a97764a"
+    "_name": "_4d70f4ba"
   },
   {
     "name": "fanclub",
     "path": "/fanclub",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/fanclub.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/fanclub.vue",
     "chunkName": "pages/fanclub",
-    "_name": "_4b31cddc"
+    "_name": "_8c945528"
   },
   {
     "name": "login",
     "path": "/login",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/login.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/login.vue",
     "chunkName": "pages/login",
-    "_name": "_02c9e1bc"
+    "_name": "_6eca8d4c"
   },
   {
     "name": "marketing",
     "path": "/marketing",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/marketing.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/marketing.vue",
     "chunkName": "pages/marketing",
-    "_name": "_2a378079"
+    "_name": "_07d7e409"
   },
   {
     "name": "media",
     "path": "/media",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/media.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/media.vue",
     "chunkName": "pages/media",
-    "_name": "_2e4ea692"
+    "_name": "_54d95847"
   },
   {
     "name": "news",
     "path": "/news",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/news.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/news.vue",
     "chunkName": "pages/news",
-    "_name": "_3a48e760"
+    "_name": "_7561a280"
   },
   {
     "name": "partners",
     "path": "/partners",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/partners.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/partners.vue",
     "chunkName": "pages/partners",
-    "_name": "_9bfd50b0"
+    "_name": "_13fe4218"
   },
   {
     "name": "profile",
     "path": "/profile",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/profile.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/profile.vue",
     "chunkName": "pages/profile",
-    "_name": "_7305393c"
+    "_name": "_3ced7e68"
   },
   {
     "name": "post-slug",
     "path": "/post/:slug?",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/post/_slug.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/post/_slug.vue",
     "chunkName": "pages/post/_slug",
-    "_name": "_2002e718"
+    "_name": "_132214f0"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Volumes/Extreme SSD/Websites/Max Mazorati/mazorati-nuxt/max-nuxt/pages/index.vue",
+    "component": "/Users/harry/Desktop/MaxNuxt/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_39223ea5"
+    "_name": "_b5ba2b96"
   }
 ]

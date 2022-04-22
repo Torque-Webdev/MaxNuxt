@@ -11,30 +11,10 @@
     <!-- create post  -->
     <mdb-container v-else>
       <mdb-row>
-        <mdb-col class="text-center pt-2" col="12">
-          <img
-            v-if="post.url"
-            :src="post.url"
-            :alt="post.alt"
-            class="img-fluid"
-          />
-
-          <img
-            v-else
-            :src="defaultImage"
-            alt="Placeholder image"
-            class="img-fluid"
-          />
-        </mdb-col>
-
         <mdb-col col="12">
           <form class="pt-2" @submit.prevent="submitForm">
             <div class="row">
-              <div class="md-form col-4 p-0">
-                <mdb-btn color="primary" class="ml-3" inline @click="newImage"
-                  >Headline Image</mdb-btn
-                >
-              </div>
+              <ui-image-upload :image.sync="post.img"></ui-image-upload>
 
               <div class="md-form col-md-6 col-lg-4">
                 <mdb-input v-model.trim="post.date" type="date" />
@@ -127,13 +107,7 @@
       </mdb-modal-header>
       <mdb-modal-body>
         <form class="p-2" @submit.prevent>
-          <img
-            v-if="clickedPost.url"
-            :src="clickedPost.url"
-            class="img-fluid"
-          />
-
-          <mdb-btn color="primary" @click="changeImage">Change image</mdb-btn>
+          <ui-image-upload :image.sync="clickedPost.img"></ui-image-upload>
 
           <div class="md-form col-md-6 col-lg-4 p-0">
             <mdb-input v-model.trim="clickedPost.date" type="date" inline />
@@ -297,7 +271,7 @@ import {
   mdbRow,
   mdbCol
 } from "mdbvue";
-import { postsCollection, imageCollection } from "@/services/firebase";
+import { postsCollection } from "@/services/firebase";
 
 export default {
   components: {
@@ -332,14 +306,17 @@ export default {
   data() {
     return {
       post: {
+        img: {
+          url: "",
+          alt: "",
+          id: ""
+        },
         title: "",
         excerpt: "",
         slug: "",
         date: "",
         content: "",
         year: "",
-        imgId: "",
-        url: "",
         published: "",
       },
       imgSwitch: false,
@@ -356,6 +333,11 @@ export default {
         title: "",
       },
       clickedPost: {
+        img: {
+          url: "",
+          alt: "",
+          id: ""
+        },
         id: "",
         title: "",
         excerpt: "",
@@ -400,14 +382,17 @@ export default {
   methods: {
     reset() {
       this.post = {
+         img: {
+          url: "",
+          alt: "",
+          id: ""
+        },
         title: "",
         excerpt: "",
         slug: "",
         date: "",
         content: "",
         year: "",
-        imgId: "",
-        url: "",
         publishDate: ""
       }
       this.file = "";
@@ -416,9 +401,6 @@ export default {
         content: "",
         alt: "",
       };
-    },
-    check() {
-      console.log(this.post)
     },
     addPost() {
       let slugArry = [];
@@ -449,9 +431,8 @@ export default {
           content: this.post.content,
           year: this.post.year,
           createdOn: new Date(),
-          imgId: this.post.imgId,
-          url: this.post.url,
-          alt: this.post.alt,
+          url: this.post.img.url,
+          alt: this.post.img.alt,
           published: this.post.published
         })
         .then(() => {
@@ -479,87 +460,6 @@ export default {
             };
           }, 2000);
         });
-    },
-    newImage() {
-      this.uploadImage = true;
-      this.type = "new";
-    },
-    checkFile(event) {
-      this.file = event.target.files[0];
-      imageCollection
-        .where("name", "===", this.file.name)
-        .get()
-        .then((docs) => {
-          docs.forEach((doc) => {
-            if (doc.exists) {
-              this.existsModal = true;
-              this.uploadImage = false;
-              this.img.content = doc.data();
-              this.img.id = doc.id;
-
-            }
-          });
-        });
-    },
-    saveFile() {
-      const payload = {};
-      payload.file = this.file;
-      payload.alt = this.img.alt;
-      this.$store
-        .dispatch("images/uploadImage", payload)
-        .then((img) => {
-          this.img.content = img;
-          if (this.type === "new") {
-            this.post.imgId = this.img.content.id;
-            this.post.url = this.img.content.url;
-            this.post.alt = this.img.alt;
-          } else if (this.type === "edit") {
-            this.clickedPost.imgId = this.img.content.id;
-            this.clickedPost.url = this.img.content.url;
-            this.clickedPost.alt = this.img.alt;
-          }
-        })
-        .then(() => {
-          this.$store.dispatch("global/setLoading", false);
-          this.file = "";
-          this.img.alt = "";
-          setTimeout(() => {
-            this.uploadImage = false;
-          }, 3000);
-        });
-    },
-    closeImageUpload() {
-      this.uploadImage = false;
-      this.type = "";
-      this.file = "";
-      this.img.alt = "";
-    },
-    confirmUse() {
-      if (this.type === "new") {
-        this.post.imgId = this.img.id;
-        this.existsModal = false;
-        this.post.url = this.img.content.url;
-        this.post.alt = this.img.content.alt;
-        this.type = "";
-        this.file = "";
-        this.img.alt = "";
-      } else if (this.type === "edit") {
-        this.clickedPost.imgId = this.img.id;
-        this.existsModal = false;
-        this.clickedPost.url = this.img.content.url;
-        this.clickedPost.alt = this.img.content.alt;
-        this.type = "";
-        this.file = "";
-        this.img.alt = "";
-      }
-    },
-    declineUse() {
-      this.existsModal = false;
-      this.img.content = "";
-      this.img.id = "";
-      this.type = "";
-      this.file = "";
-      this.img.alt = "";
     },
     submitForm() {
       if (this.post.date === "" || this.post.title === "") {
@@ -635,13 +535,17 @@ export default {
       this.clickedPost.date = post.date;
       this.clickedPost.content = post.content;
       this.clickedPost.year = post.year;
-      this.clickedPost.url = post.url;
-      this.clickedPost.imgId = post.imgId;
-      this.clickedPost.alt = post.alt;
+      this.clickedPost.img.url = post.url;
+      this.clickedPost.img.alt = post.alt;
       this.clickedPost.published = post.published
     },
     cancelEdit() {
       this.clickedPost = {
+        img: {
+          url: "",
+          alt: "",
+          id: ""
+        },
         id: "",
         title: "",
         excerpt: "",
@@ -649,9 +553,6 @@ export default {
         date: "",
         content: "",
         year: "",
-        url: "",
-        imgId: "",
-        alt: "",
         published: ""
       };
       this.editModal = false;
@@ -685,9 +586,8 @@ export default {
           content: this.clickedPost.content,
           year: this.clickedPost.year,
           createdOn: new Date(),
-          imgId: this.clickedPost.imgId,
-          url: this.clickedPost.url,
-          alt: this.clickedPost.alt,
+          url: this.clickedPost.img.url,
+          alt: this.clickedPost.img.alt,
           published: this.clickedPost.published
         })
         .then(() => {

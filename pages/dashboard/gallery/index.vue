@@ -190,7 +190,6 @@ export default {
               };
               this.$store.commit("images/setMsg", msg);
               this.file = "";
-
             }
           });
         });

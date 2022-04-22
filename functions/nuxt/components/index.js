@@ -16,6 +16,7 @@ export const UiImageUpload = () => import('../../components/UI/imageUpload.vue' 
 export const UiNewsImage = () => import('../../components/UI/newsImage.vue' /* webpackChunkName: "components/ui-news-image" */).then(c => wrapFunctional(c.default || c))
 export const UiPartners = () => import('../../components/UI/partners.vue' /* webpackChunkName: "components/ui-partners" */).then(c => wrapFunctional(c.default || c))
 export const UiProfileImage = () => import('../../components/UI/profileImage.vue' /* webpackChunkName: "components/ui-profile-image" */).then(c => wrapFunctional(c.default || c))
+export const HelpersScheduling = () => import('../../components/Helpers/scheduling.vue' /* webpackChunkName: "components/helpers-scheduling" */).then(c => wrapFunctional(c.default || c))
 
 // nuxt/nuxt.js#8607
 function wrapFunctional(options) {

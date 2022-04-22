@@ -3,28 +3,10 @@
     <mdb-container>
       <mdb-row>
         <mdb-col class="text-center pt-2">
-          <img
-            v-if="marketing.url"
-            :src="marketing.url"
-            :alt="marketing.alt"
-            class="img-fluid"
-          />
-
-          <img
-            v-else
-            :src="defaultImage"
-            alt="Placeholder image"
-            class="img-fluid"
-          />
+          <ui-image-upload :image.sync="marketing.img"></ui-image-upload>
         </mdb-col>
       </mdb-row>
       <form class="pt-2 row" @submit.prevent="submitForm">
-        <div class="md-form col-12 p-0 text-center">
-          <mdb-btn color="primary" class="ml-3" inline @click="headlineImage"
-            >Cover image</mdb-btn
-          >
-        </div>
-
         <mdb-col>
           <ui-app-editor2 :content.sync="marketing.content"></ui-app-editor2>
         </mdb-col>
@@ -37,7 +19,6 @@
           <mdb-col>
             <h3>Gallery content</h3>
             <div class="d-flex flex-row">
-              <mdb-btn @click="newImage">New image</mdb-btn>
               <mdb-btn @click="selectImage">Select image</mdb-btn>
             </div>
             <mdb-row>
@@ -88,88 +69,6 @@
       </div>
     </transition>
 
-    <!-- existsModal -->
-    <mdb-modal size="md" :show="existsModal" @close="existsModal = false">
-      <mdb-modal-header>
-        <mdb-modal-title>Image exists with that name</mdb-modal-title>
-      </mdb-modal-header>
-      <mdb-modal-body>
-        <div class="row col-12 col-md-6 col-lg-4 py-3">
-          <p>Would you like to use this one ?</p>
-        </div>
-        <img :src="img.content.url" :alt="img.content.alt" class="img-fluid" />
-      </mdb-modal-body>
-      <mdb-modal-footer>
-        <mdb-btn color="secondary" size="sm" @click.native="declineUse"
-          >No</mdb-btn
-        >
-        <mdb-btn color="primary" size="sm" @click="confirmUse">Yes</mdb-btn>
-      </mdb-modal-footer>
-    </mdb-modal>
-
-    <!-- uploadImage -->
-    <mdb-modal size="md" :show="uploadImage" @close="closeImageUpload">
-      <mdb-modal-header>
-        <mdb-modal-title>Upload image</mdb-modal-title>
-      </mdb-modal-header>
-      <mdb-modal-body>
-        <div class="row">
-          <div class="col-12">
-            <div class="md-form">
-              <mdb-input v-model.trim="img.alt" label="Description" inline />
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span id="imageInput" class="input-group-text">Upload</span>
-              </div>
-              <div class="custom-file">
-                <input
-                  id="imageInput"
-                  ref="imageInput"
-                  type="file"
-                  class="custom-file-input"
-                  aria-describedby="imageInput"
-                  accept="image/jpeg image/png"
-                  @change="checkFile($event)"
-                />
-                <label
-                  v-if="file.name"
-                  class="custom-file-label"
-                  for="inputGroupFile01"
-                  >{{ file.name }}</label
-                >
-                <label v-else class="custom-file-label" for="inputGroupFile01"
-                  >Image</label
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </mdb-modal-body>
-      <mdb-modal-footer>
-        <mdb-btn color="secondary" size="sm" @click.native="closeImageUpload"
-          >Close</mdb-btn
-        >
-        <mdb-btn
-          color="primary"
-          size="sm"
-          :disabled="img.alt == ''"
-          @click="saveFile(type)"
-          >Save</mdb-btn
-        >
-      </mdb-modal-footer>
-      <transition name="fade">
-        <div
-          v-if="uploadMsg.message != ''"
-          :class="`bg-${uploadMsg.type}`"
-          class="text-white text-center"
-        >
-          <p>{{ uploadMsg.message }}</p>
-        </div>
-      </transition>
-    </mdb-modal>
     <!-- selectModel -->
     <mdb-modal
       top
@@ -227,7 +126,7 @@ import {
   mdbInput,
 } from "mdbvue";
 import { cloneDeep } from "lodash"
-import { imageCollection, marketingPage } from "@/services/firebase";
+import { marketingPage } from "@/services/firebase";
 
 export default {
   components: {
@@ -246,11 +145,12 @@ export default {
   data() {
     return {
       marketing: {
-        url: "",
+        img: {
+          url: "",
+          alt: ""
+        },
         content: "",
-        content2: "",
-        alt: "",
-        imgId: "",
+        content2: ""
       },
       msg: {
         message: "",
@@ -287,13 +187,23 @@ export default {
   },
   created() {
     setTimeout(() => {
-      this.marketing = cloneDeep(this.marketingContent)
+      this.setMarketing();
       this.galleryContent = this.marketing.galleryContent;
     }, 500);
   },
   methods: {
+    setMarketing() {
+      const contents = cloneDeep(this.marketingContent);
+      this.marketing = {
+        img: {
+          url: contents.url,
+          alt: contents.alt,
+        },
+        content: contents.content,
+      }
+    },
     reset() {
-      this.marketing = cloneDeep(this.marketingContent)
+      this.setMarketing();
       this.galleryContent = this.marketing.galleryContent;
       this.file = "";
       this.img = {
@@ -307,11 +217,10 @@ export default {
       marketingPage
         .doc(this.marketing.id)
         .update({
-          alt: this.marketing.alt,
-          url: this.marketing.url,
+          alt: this.marketing.img.alt,
+          url: this.marketing.img.url,
           content: this.marketing.content,
           content2: this.marketing.content2,
-          imgId: this.marketing.imgId,
           galleryContent: this.galleryContent,
         })
         .then(() => {
@@ -343,94 +252,8 @@ export default {
     submitForm() {
       this.updateContent();
     },
-    headlineImage() {
-      this.uploadImage = true;
-      this.type = "headline";
-    },
-    newImage() {
-      this.uploadImage = true;
-      this.type = "new";
-    },
     selectImage() {
       this.selectModel = true;
-    },
-    checkFile(event) {
-      this.file = event.target.files[0];
-      imageCollection
-        .where("name", "==", this.file.name)
-        .get()
-        .then((docs) => {
-          docs.forEach((doc) => {
-            if (doc.exists) {
-              this.existsModal = true;
-              this.uploadImage = false;
-              this.img.content = doc.data();
-              this.img.id = doc.id;
-
-            }
-          });
-        });
-    },
-    saveFile() {
-      if (this.type === "headline") {
-        const payload = {};
-        payload.file = this.file;
-        payload.alt = this.img.alt;
-        this.$store.dispatch("images/uploadImage", payload);
-        setTimeout(() => {
-          this.img.content = this.updatedImage;
-          this.marketing.imgId = this.img.content.id;
-          this.marketing.url = this.img.content.url;
-          this.marketing.alt = this.img.alt;
-          this.uploadImage = false;
-          this.type = "";
-          this.file = "";
-          this.img.alt = "";
-        }, 2000);
-      } else if (this.type === "new") {
-        const payload = {};
-        payload.file = this.file;
-        payload.alt = this.img.alt;
-        this.$store.dispatch("images/uploadImage", payload);
-        setTimeout(() => {
-          this.img.content = this.updatedImage;
-          this.galleryContent.push(this.img.content);
-          this.uploadImage = false;
-          this.type = "";
-          this.file = "";
-        }, 2000);
-      }
-    },
-    closeImageUpload() {
-      this.uploadImage = false;
-      this.type = "";
-      this.file = "";
-      this.img.alt = "";
-    },
-    confirmUse() {
-      if (this.type === "headline") {
-        this.marketing.imgId = this.img.id;
-        this.existsModal = false;
-        this.marketing.url = this.img.content.url;
-        this.marketing.alt = this.img.content.alt;
-        this.type = "";
-        this.file = "";
-        this.img.alt = "";
-      } else if (this.type === "new") {
-        this.galleryContent.push(this.img.content);
-        this.existsModal = false;
-        this.type = "";
-        this.file = "";
-        this.img.alt = "";
-      }
-    },
-    declineUse() {
-      this.existsModal = false;
-      this.img.content = "";
-      this.img.id = "";
-      this.type = "";
-      this.file = "";
-      this.img.alt = "";
     },
     saveSelection() {
       this.selectModel = false;

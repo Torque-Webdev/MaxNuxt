@@ -25,9 +25,8 @@ export const actions = {
       const alt = payload.alt
       const storageRef = storage.ref('images/' + file.name)
       const uploadTask = storageRef.put(file)
-
-      this.$store.dispatch('global/setLoading', true)
-
+      console.log("Uploading .......")
+      console.log(payload)
       uploadTask.on(
         'state_changed',
         () => {
@@ -55,10 +54,8 @@ export const actions = {
                     const img = doc.data()
                     img.id = id
                     resolve(img)
-                    this.$store.dispatch('global/setLoading', false)
                   })
                   .catch((err) => {
-                    this.$store.dispatch('global/setLoading', false)
                     const msg = {
                       type: 'warning',
                       message: err.message,
@@ -71,7 +68,6 @@ export const actions = {
                   })
               })
               .catch((err) => {
-                this.$store.dispatch('global/setLoading', false)
                 const msg = {
                   type: 'warning',
                   message: err.message,

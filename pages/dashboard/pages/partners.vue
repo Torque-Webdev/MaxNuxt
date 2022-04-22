@@ -3,25 +3,7 @@
     <mdb-container>
       <mdb-row>
         <mdb-col class="text-center py-2" col="12">
-          <img
-            v-if="about.url"
-            :src="about.url"
-            :alt="about.alt"
-            class="img-fluid"
-          />
-
-          <img
-            v-else
-            :src="defaultImage"
-            alt="Placeholder image"
-            class="img-fluid"
-          />
-        </mdb-col>
-
-        <mdb-col col="12">
-          <mdb-btn color="primary" class="ml-3" inline @click="headlineImage"
-            >Cover image</mdb-btn
-          >
+          <UiImageUpload :image.sync="about.img" />
         </mdb-col>
       </mdb-row>
 
@@ -45,88 +27,6 @@
       </div>
     </transition>
 
-    <!-- existsModal -->
-    <mdb-modal size="md" :show="existsModal" @close="existsModal = false">
-      <mdb-modal-header>
-        <mdb-modal-title>Image exists with that name</mdb-modal-title>
-      </mdb-modal-header>
-      <mdb-modal-body>
-        <div class="row col-12 col-md-6 col-lg-4 py-3">
-          <p>Would you like to use this one ?</p>
-        </div>
-        <img :src="img.content.url" :alt="img.content.alt" class="img-fluid" />
-      </mdb-modal-body>
-      <mdb-modal-footer>
-        <mdb-btn color="secondary" size="sm" @click.native="declineUse"
-          >No</mdb-btn
-        >
-        <mdb-btn color="primary" size="sm" @click="confirmUse">Yes</mdb-btn>
-      </mdb-modal-footer>
-    </mdb-modal>
-
-    <!-- uploadImage -->
-    <mdb-modal size="md" :show="uploadImage" @close="closeImageUpload">
-      <mdb-modal-header>
-        <mdb-modal-title>Upload image</mdb-modal-title>
-      </mdb-modal-header>
-      <mdb-modal-body>
-        <div class="row">
-          <div class="col-12">
-            <div class="md-form">
-              <mdb-input v-model.trim="img.alt" label="Description" inline />
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span id="imageInput" class="input-group-text">Upload</span>
-              </div>
-              <div class="custom-file">
-                <input
-                  id="imageInput"
-                  ref="imageInput"
-                  type="file"
-                  class="custom-file-input"
-                  aria-describedby="imageInput"
-                  accept="image/jpeg image/png"
-                  @change="checkFile($event)"
-                />
-                <label
-                  v-if="file.name"
-                  class="custom-file-label"
-                  for="inputGroupFile01"
-                  >{{ file.name }}</label
-                >
-                <label v-else class="custom-file-label" for="inputGroupFile01"
-                  >Image</label
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </mdb-modal-body>
-      <mdb-modal-footer>
-        <mdb-btn color="secondary" size="sm" @click.native="closeImageUpload"
-          >Close</mdb-btn
-        >
-        <mdb-btn
-          color="primary"
-          size="sm"
-          :disabled="img.alt == ''"
-          @click="saveFile(type)"
-          >Save</mdb-btn
-        >
-      </mdb-modal-footer>
-      <transition name="fade">
-        <div
-          v-if="uploadMsg.message != ''"
-          :class="`bg-${uploadMsg.type}`"
-          class="text-white text-center"
-        >
-          <p>{{ uploadMsg.message }}</p>
-        </div>
-      </transition>
-    </mdb-modal>
     <!-- selectModel -->
     <mdb-modal
       top
@@ -180,7 +80,6 @@ import {
   mdbModalBody,
   mdbModalFooter,
   mdbModal,
-  mdbInput,
 } from "mdbvue";
 import { cloneDeep } from "lodash"
 import { imageCollection, partnersPage } from "@/services/firebase";
@@ -194,16 +93,16 @@ export default {
     mdbModalTitle,
     mdbModalBody,
     mdbModalFooter,
-    mdbModal,
-    mdbInput
+    mdbModal
   },
   data() {
     return {
       about: {
-        url: "",
-        content: "",
-        alt: "",
-        imgId: "",
+        img: {
+          url: "",
+          alt: ""
+        },
+        content: ""
       },
       msg: {
         message: "",
@@ -238,14 +137,25 @@ export default {
       return this.$store.getters["images/getImages"];
     },
   },
-  mounted() {
+  created() {
     setTimeout(() => {
-      this.about = cloneDeep(this.aboutContent)
+      this.setAbout();
     }, 500);
   },
   methods: {
+    setAbout() {
+      const contents = cloneDeep(this.aboutContent)
+      this.about = {
+        img: {
+          url: contents.url,
+          alt: contents.alt,
+        },
+        content: contents.content,
+        partners: contents.partners
+      }
+    },
     reset() {
-      this.about = cloneDeep(this.aboutContent)
+      this.setAbout();
       this.file = "";
       this.img = {
         id: "",
